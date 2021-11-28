@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
+import PageScaffold from '../PageScaffold';
+
 const ChoosingMenu = ({
 	title,
 	data,
@@ -17,16 +19,7 @@ const ChoosingMenu = ({
 	const history = useHistory();
 
 	return (
-		<div className="choosing-menu">
-			<img className="background-img" src={background} alt="" />
-			<div
-				className="back-btn"
-				onClick={() => {
-					history.push(`${previousPage}`);
-				}}
-			>
-				<div>{'<< Back'}</div>
-			</div>
+		<PageScaffold background={background} previousPage={previousPage}>
 			<div className="choosing-menu__main">
 				<h1 className="choosing-menu__title">{title}</h1>
 				<div className="choosing-menu__choice-group">
@@ -34,18 +27,18 @@ const ChoosingMenu = ({
 						return (
 							<label
 								key={choice.id}
-								onClick={() => setData(choice.data)}
 							>
 								<input
 									type="radio"
 									name={title}
 									checked={choice.data == data ? true : false}
+									onChange={() => setData(choice.data)}
 								/>
 								<div
 									style={{
 										width: choice.size,
 										height: choice.size,
-										"--border-radius": borderRadius,
+										'--border-radius': borderRadius,
 									}}
 									className="choosing-menu__choice-item"
 								>
@@ -65,7 +58,7 @@ const ChoosingMenu = ({
 					{'Next >>'}
 				</button>
 			</div>
-		</div>
+		</PageScaffold>
 	);
 };
 

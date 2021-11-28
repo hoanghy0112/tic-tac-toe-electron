@@ -5,7 +5,7 @@ import map_3 from '../../../../assets/playpage/3x3.svg';
 import map_10 from '../../../../assets/playpage/10x10.svg';
 import map_13 from '../../../../assets/playpage/13x13.svg';
 
-import ChoosingMenu from 'renderer/components/ChoosingMenu/ChoosingMenu';
+import ChoosingMenu from 'renderer/components/ChoosingMenu';
 
 import { boardSizeSelector } from 'renderer/features/configuration';
 import { setBoardSize } from 'renderer/features/configuration';

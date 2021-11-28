@@ -6,12 +6,10 @@ import './HomePage.scss';
 
 import { useState, useEffect, useRef } from 'react';
 
-// const remote = require('electron').remote;
-// const currWin = remote.getCurrentWindow();
 
 import { Link, useHistory } from 'react-router-dom';
 
-const HomePage = ({isBegin, setIsBegin}) => {
+const HomePage = ({ isBegin, setIsBegin }) => {
 	const home = useRef(null);
 
 	const history = useHistory();
@@ -25,7 +23,7 @@ const HomePage = ({isBegin, setIsBegin}) => {
 	const navigateTo = (destination) => {
 		history.push(`/${destination}`);
 		console.log(document.URL);
-	}
+	};
 
 	return (
 		<div className="Home">
@@ -39,9 +37,18 @@ const HomePage = ({isBegin, setIsBegin}) => {
 					<img src={game_name} alt="" />
 
 					<div className="button-group">
-						<button onClick={() => navigateTo('choose-game-mode')} className="btn">Play</button>
-						<button onClick={() => navigateTo('aboutus')} className="btn">About us</button>
-						<button onClick={() => {}} className="btn">Exit</button>
+						<button
+							onClick={() => navigateTo('choose-game-mode')}
+							className="btn"
+						>
+							Play
+						</button>
+						<button onClick={() => navigateTo('about-us')} className="btn">
+							About us
+						</button>
+						<button onClick={() => {}} className="btn">
+							Exit
+						</button>
 					</div>
 				</>
 			)}

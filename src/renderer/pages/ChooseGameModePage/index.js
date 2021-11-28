@@ -4,7 +4,7 @@ import human from '../../../../assets/playpage/human.svg';
 import robot from '../../../../assets/playpage/robot.svg';
 import PvP from '../../../../assets/playpage/PvP.svg';
 
-import ChoosingMenu from 'renderer/components/ChoosingMenu/ChoosingMenu';
+import ChoosingMenu from 'renderer/components/ChoosingMenu';
 
 import { gameModeSelector } from 'renderer/features/configuration';
 import { setGameMode } from 'renderer/features/configuration';

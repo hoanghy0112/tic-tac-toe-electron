@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import * as gameMode from 'renderer/constants/configuration/gameMode';
-import * as boardSize from 'renderer/constants/configuration/boardSize';
+import * as GAME_MODE from 'renderer/constants/configuration/gameMode';
+import * as BOARD_SIZE from 'renderer/constants/configuration/boardSize';
 
 const configurationSlice = createSlice({
 	name: 'configuration',
 	initialState: {
-		gameMode: gameMode.OFFLINE,
-		boardSize: boardSize.MAP_3,
+		gameMode: GAME_MODE.OFFLINE,
+		boardSize: BOARD_SIZE.MAP_3,
 	},
 	reducers: {
 		setGameMode: (state, action) => {
@@ -15,16 +15,14 @@ const configurationSlice = createSlice({
 		},
 		setBoardSize: (state, action) => {
 			state.boardSize = action.payload;
-		}
+		},
 	},
 });
 
-export const {
-	setGameMode,
-	setBoardSize
-} = configurationSlice.actions;
+export const { setGameMode, setBoardSize } = configurationSlice.actions;
 
 export const gameModeSelector = (state) => state.configuration.gameMode;
 export const boardSizeSelector = (state) => state.configuration.boardSize;
+export const configurationSelector = (state) => state.configuration;
 
 export default configurationSlice.reducer;
