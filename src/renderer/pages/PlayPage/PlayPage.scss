@@ -50,6 +50,15 @@
 	}
 }
 
+.function-group {
+	position: fixed;
+	margin: auto 0;
+	right: 50px;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 40px;
+}
+
 .winning-dialogue {
 	display: grid;
 	place-items: center;

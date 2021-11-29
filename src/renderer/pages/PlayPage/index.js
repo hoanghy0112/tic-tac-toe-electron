@@ -2,7 +2,16 @@
 import PageScaffold from "renderer/components/PageScaffold";
 import Modal from "renderer/components/Modal/Modal";
 
-import { boardMapSelector, winningStateSelector, currentMoveSelector, initializeMap, makeNewMove } from "renderer/features/boardMap";
+import {
+	boardMapSelector,
+	winningStateSelector,
+	currentMoveSelector,
+	previousMoveSelector,
+
+	initializeMap,
+	makeNewMove,
+	moveBack,
+} from "renderer/features/boardMap";
 import { configurationSelector } from "renderer/features/configuration";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +22,9 @@ import { MAP_3, MAP_10, MAP_13 } from "renderer/constants/configuration/boardSiz
 
 import X_icon from "../../../../assets/playpage/item/X.svg";
 import O_icon from "../../../../assets/playpage/item/O.svg";
+import historyIcon from "../../../../assets/playpage/history.svg";
+import replayIcon from "../../../../assets/playpage/replay.svg";
+import settingIcon from "../../../../assets/playpage/setting.svg";
 
 import './PlayPage.scss';
 
@@ -30,8 +42,9 @@ const PlayPage = () => {
 	} = useSelector(configurationSelector);
 
 	const currentMove = useSelector(currentMoveSelector);
-
+	const previousMove = useSelector(previousMoveSelector);
 	const winningState = useSelector(winningStateSelector);
+
 	let timeout;
 	useEffect(() => {
 		if (winningState.isWin) {
@@ -40,12 +53,6 @@ const PlayPage = () => {
 			}, 1000);
 		}
 	}, [winningState.isWin])
-	// console.log('replay dialogue: ', replayDialogue);
-
-	// const turnOffModal = () => {
-	// 	clearTimeout(timeout);
-	// 	setReplayDialogue(false);
-	// }
 
 	const [style, setStyle] = useState();
 
@@ -92,6 +99,18 @@ const PlayPage = () => {
 		}
 	}
 
+	const handleReplay = () => {
+		dispatch(initializeMap(boardSize));
+	}
+
+	const handleMoveBack = () => {
+		dispatch(moveBack());
+	}
+
+	const handleSetting = () => {
+
+	}
+
 	return (
 		<PageScaffold background={} previousPage="/choose-board-size">
 			<div className="board" style={style}>
@@ -111,9 +130,11 @@ const PlayPage = () => {
 										})()
 										: "")
 								}`}
-								onClick={handleNewMove(indexX, indexY)}
 							>
-								<div className="board__cell__inner">
+								<div
+									className="board__cell__inner"
+									onClick={handleNewMove(indexX, indexY)}
+								>
 									{ cell == X && <img src={X_icon} /> }
 									{ cell == O && <img src={O_icon} /> }
 								</div>
@@ -121,6 +142,11 @@ const PlayPage = () => {
 						))}
 					</div>
 				))}
+			</div>
+			<div className="function-group">
+				<button className="circle-btn" onClick={handleReplay}><img src={replayIcon} /></button>
+				<button className={`circle-btn ${previousMove || "disabled"}`} onClick={previousMove ? handleMoveBack : () => {}}><img src={historyIcon} /></button>
+				<button className="circle-btn" onClick={handleSetting}><img src={settingIcon} /></button>
 			</div>
 			{ winningState.isWin &&
 				<Modal>
@@ -132,7 +158,7 @@ const PlayPage = () => {
 						<div className="replay-dialogue">
 							Do you want to replay ?
 							<div className="button-group">
-								<button className="dialogue-btn" onClick={() => history.push('/choose-board-size')}>Yes</button>
+								<button className="dialogue-btn" onClick={handleReplay}>Yes</button>
 								<button className="dialogue-btn" onClick={() => history.push('/')}>No</button>
 							</div>
 						</div>

@@ -10,6 +10,8 @@
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
 
+	--diable: #505050;
+
 	--background-color: #fefae0;
 	--inner-color: #f9eed2;
 	--dialogue-color: #e6ddc4;
@@ -66,6 +68,33 @@ body {
 	&:hover {
 		background-color: var(--bold-color);
 		color: var(--button-color);
+		cursor: pointer;
+	}
+}
+
+.circle-btn {
+	border: none;
+	outline: none;
+	border-radius: 999px;
+	background-color: var(--inner-color);
+	width: 60px;
+	height: 60px;
+	font-size: 28px;
+	display: grid;
+	place-items: center;
+	font-family: 'Red Hat Text', sans-serif;
+	transition: 0.4s;
+
+	&.disabled {
+		background-color: var(--disable);
+		opacity: 0.5;
+	}
+
+	&:hover:not(.disabled) {
+		background-color: var(--bold-color);
+		color: var(--inner-color);
+		transform: translateY(-10px);
+		box-shadow: 0 5px 20px -5px #666666;
 		cursor: pointer;
 	}
 }

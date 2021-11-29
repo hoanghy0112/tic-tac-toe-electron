@@ -20,7 +20,7 @@ export default React.memo(function Modal ({ onClickOutside, children }) {
 						setAppear(false);
 					}, 300);
 				}}
-				className="modal__background"
+				className={`modal__background ${animationDisappear && "animation-disappear"}`}
 			></div>
 			<div className={`modal__content ${animationDisappear && "animation-disappear"}`}>{children}</div>
 		</div>

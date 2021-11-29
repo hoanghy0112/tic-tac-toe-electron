@@ -16,6 +16,11 @@
 		height: 100vh;
 		background-color: #30303048;
 		z-index: 4;
+		animation: modalBackgroundAppear 0.3s ease-out 1 forwards;
+
+		&.animation-disappear {
+			animation: modalBackgroundDisappear 0.3s ease-out 1 forwards;
+		}
 	}
 
 	.modal__content {
@@ -54,6 +59,23 @@
 		to {
 			opacity: 0;
 			transform: translateY(100px);
+		}
+	}
+
+	@keyframes modalBackgroundAppear {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes modalBackgroundDisappear {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
 		}
 	}
 }
