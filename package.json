@@ -35,7 +35,7 @@
     "os": false
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "Tictactoe",
     "appId": "org.erb.ElectronReact",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
