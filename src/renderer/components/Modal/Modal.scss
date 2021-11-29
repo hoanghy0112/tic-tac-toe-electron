@@ -1,0 +1,59 @@
+.modal {
+	position: fixed;
+	margin: auto;
+	display: grid;
+	place-items: center;
+
+	&.disappear {
+		display: none;
+	}
+
+	.modal__background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: #30303048;
+		z-index: 4;
+	}
+
+	.modal__content {
+		z-index: 5;
+		display: grid;
+		place-items: center;
+		padding: 40px 100px;
+
+		animation: appear 0.3s ease-out 1 forwards;
+
+		background-color: var(--inner-color);
+		border-radius: 35px;
+
+		box-shadow: 0 4px 25px 5px #0000004b;
+
+		&.animation-disappear {
+			animation: disappear 0.3s ease-out 1 forwards;
+		}
+	}
+
+	@keyframes appear {
+		from {
+			opacity: 0;
+			transform: translateY(-100px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	@keyframes disappear {
+		from {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateY(100px);
+		}
+	}
+}

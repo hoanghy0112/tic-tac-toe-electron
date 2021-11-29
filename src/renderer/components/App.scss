@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Red+Hat+Text:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Raleway&family=Red+Hat+Text:wght@300;400&display=swap');
 
 * {
 	padding: 0;
@@ -10,10 +10,12 @@
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
 
-	--background-color: #FEFAE0;
-	--bold-color: #4D3F1B;
-	--button-color: #FFF0C5;
-	--primary-button-color: #E6DDC4;
+	--background-color: #fefae0;
+	--inner-color: #f9eed2;
+	--dialogue-color: #e6ddc4;
+	--bold-color: #4d3f1b;
+	--button-color: #fff0c5;
+	--primary-button-color: #e6ddc4;
 
 	--winning-color: #fffb00;
 }
@@ -68,6 +70,26 @@ body {
 	}
 }
 
+.dialogue-btn {
+	border: none;
+	outline: none;
+	border-radius: 25px;
+	background-color: var(--dialogue-color);
+	width: 120px;
+	height: 50px;
+	font-size: 24px;
+	display: grid;
+	place-items: center;
+	font-family: 'Red Hat Text', sans-serif;
+	transition: 0.4s;
+
+	&:hover {
+		background-color: var(--bold-color);
+		color: var(--button-color);
+		cursor: pointer;
+	}
+}
+
 .back-btn {
 	position: fixed;
 	top: 55px;
@@ -84,8 +106,7 @@ body {
 		& > * {
 			font-weight: bold;
 			transform: translateY(-10px);
-			text-shadow: 5px 5px 2px 0 #4D3F1B;
-
+			text-shadow: 5px 5px 2px 0 #4d3f1b;
 		}
 	}
 }

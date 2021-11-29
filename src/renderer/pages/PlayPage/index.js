@@ -1,10 +1,13 @@
 
 import PageScaffold from "renderer/components/PageScaffold";
+import Modal from "renderer/components/Modal/Modal";
 
-import { boardMapSelector, winningStateSelector, initializeMap, makeNewMove } from "renderer/features/boardMap";
+import { boardMapSelector, winningStateSelector, currentMoveSelector, initializeMap, makeNewMove } from "renderer/features/boardMap";
 import { configurationSelector } from "renderer/features/configuration";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { NONE, O, X } from "renderer/constants/board/cellType";
 import { MAP_3, MAP_10, MAP_13 } from "renderer/constants/configuration/boardSize";
 
@@ -15,21 +18,34 @@ import './PlayPage.scss';
 
 import React, { useEffect, useState } from "react";
 
-const PlayPage = React.memo(() => {
+const PlayPage = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const [replayDialogue, setReplayDialogue] = useState(false);
 
 	const {
 		gameMode,
 		boardSize
 	} = useSelector(configurationSelector);
 
-	const winningState = useSelector(winningStateSelector);
-	useEffect(() => {
-		setTimeout(() => {
-			//! code here....
-		}, 2000);
-	}, [winningState.isWin])
+	const currentMove = useSelector(currentMoveSelector);
 
+	const winningState = useSelector(winningStateSelector);
+	let timeout;
+	useEffect(() => {
+		if (winningState.isWin) {
+			timeout = setTimeout(() => {
+				setReplayDialogue(true);
+			}, 1000);
+		}
+	}, [winningState.isWin])
+	// console.log('replay dialogue: ', replayDialogue);
+
+	// const turnOffModal = () => {
+	// 	clearTimeout(timeout);
+	// 	setReplayDialogue(false);
+	// }
 
 	const [style, setStyle] = useState();
 
@@ -89,7 +105,6 @@ const PlayPage = React.memo(() => {
 										: ""
 								}`}
 								onClick={handleNewMove(indexX, indexY)}
-								// className="board__cell"
 							>
 								<div className="board__cell__inner">
 									{ cell == X && <img src={X_icon} /> }
@@ -100,8 +115,22 @@ const PlayPage = React.memo(() => {
 					</div>
 				))}
 			</div>
+			{ winningState.isWin &&
+				<Modal>
+					<div className="winning-dialogue">
+						<span>{ currentMove.type == X ? <img src={X_icon}/> : <img src={O_icon}/>} is the winner</span>
+						<div className="replay-dialogue">
+							Do you want to replay ?
+							<div className="button-group">
+								<button className="dialogue-btn" onClick={() => history.push('/choose-board-size')}>Yes</button>
+								<button className="dialogue-btn" onClick={() => history.push('/')}>No</button>
+							</div>
+						</div>
+					</div>
+				</Modal>
+			}
 		</PageScaffold>
 	)
-})
+}
 
 export default PlayPage;

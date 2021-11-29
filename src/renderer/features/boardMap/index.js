@@ -44,8 +44,12 @@ const boardMapSlice = createSlice({
 export const { initializeMap, makeNewMove } = boardMapSlice.actions;
 
 export const boardMapSelector = (state) => state.board.boardMap;
+export const currentMoveSelector = state => state.board.currentMove;
 export const winningStateSelector = (state) => {
 	const { boardMap, currentMove } = state.board;
+	if (currentMove.x == undefined) return {
+		isWin: false
+	}
 	const boardSize = boardMap.length;
 	const winPoint = (() => {
 		switch (boardSize) {
