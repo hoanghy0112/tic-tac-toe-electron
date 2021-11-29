@@ -1,7 +1,7 @@
 
 import PageScaffold from "renderer/components/PageScaffold";
 
-import { boardMapSelector, isNewSelector, initializeMap, makeNewMove } from "renderer/features/boardMap";
+import { boardMapSelector, winningStateSelector, initializeMap, makeNewMove } from "renderer/features/boardMap";
 import { configurationSelector } from "renderer/features/configuration";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -23,7 +23,13 @@ const PlayPage = React.memo(() => {
 		boardSize
 	} = useSelector(configurationSelector);
 
-	const isNew = useSelector(isNewSelector);
+	const winningState = useSelector(winningStateSelector);
+	useEffect(() => {
+		setTimeout(() => {
+			//! code here....
+		}, 2000);
+	}, [winningState.isWin])
+
 
 	const [style, setStyle] = useState();
 
@@ -60,16 +66,31 @@ const PlayPage = React.memo(() => {
 	const boardMap = useSelector(boardMapSelector);
 
 	const handleNewMove = (x, y) => () => {
-		dispatch(makeNewMove([x, y]))
+		if (!winningState.isWin) dispatch(makeNewMove([x, y]))
 	}
 
 	return (
 		<PageScaffold background={} previousPage="/choose-board-size">
 			<div className="board" style={style}>
-				{boardMap.map((row, indexY) => (
+				{boardMap.map((row, indexX) => (
 					<div className="board__row">
-						{row.map((cell, indexX) => (
-							<div onClick={handleNewMove(indexX, indexY)} className="board__cell">
+						{row.map((cell, indexY) => (
+							<div
+								className={`board__cell ${
+									winningState.isWin
+										? (() => {
+											if (winningState.winCells.some(value =>
+												JSON.stringify(value) == JSON.stringify({
+													x: indexX,
+													y: indexY
+												}))) return "winning-cell";
+											else return "";
+										})()
+										: ""
+								}`}
+								onClick={handleNewMove(indexX, indexY)}
+								// className="board__cell"
+							>
 								<div className="board__cell__inner">
 									{ cell == X && <img src={X_icon} /> }
 									{ cell == O && <img src={O_icon} /> }
