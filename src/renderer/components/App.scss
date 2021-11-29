@@ -103,10 +103,10 @@ body {
 
 	&:hover {
 		cursor: pointer;
-		& > * {
+		p {
 			font-weight: bold;
 			transform: translateY(-10px);
-			text-shadow: 5px 5px 2px 0 #4d3f1b;
+			text-shadow: 5px 5px 5px #52431e79;
 		}
 	}
 }

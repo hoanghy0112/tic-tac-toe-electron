@@ -14,7 +14,7 @@ const PageScaffold = ({ background, previousPage, children }) => {
 					history.push(`${previousPage}`);
 				}}
 			>
-				<div>{'<< Back'}</div>
+				<p>{'<< Back'}</p>
 			</div>
 			{children}
 		</div>

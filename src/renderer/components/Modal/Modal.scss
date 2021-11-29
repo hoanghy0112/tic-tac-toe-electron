@@ -24,7 +24,7 @@
 		place-items: center;
 		padding: 40px 100px;
 
-		animation: appear 0.3s ease-out 1 forwards;
+		animation: modalAppear 0.3s ease-out 1 forwards;
 
 		background-color: var(--inner-color);
 		border-radius: 35px;
@@ -32,11 +32,11 @@
 		box-shadow: 0 4px 25px 5px #0000004b;
 
 		&.animation-disappear {
-			animation: disappear 0.3s ease-out 1 forwards;
+			animation: modalDisappear 0.3s ease-out 1 forwards;
 		}
 	}
 
-	@keyframes appear {
+	@keyframes modalAppear {
 		from {
 			opacity: 0;
 			transform: translateY(-100px);
@@ -46,7 +46,7 @@
 			transform: translateY(0);
 		}
 	}
-	@keyframes disappear {
+	@keyframes modalDisappear {
 		from {
 			opacity: 1;
 			transform: translateY(0);

@@ -47,9 +47,20 @@ export const boardMapSelector = (state) => state.board.boardMap;
 export const currentMoveSelector = state => state.board.currentMove;
 export const winningStateSelector = (state) => {
 	const { boardMap, currentMove } = state.board;
+
 	if (currentMove.x == undefined) return {
 		isWin: false
 	}
+
+	let isEmpty = true;
+	boardMap.forEach(row => row.forEach(cell => { if (cell == CELL_TYPE.NONE) { isEmpty = false } }));
+	if (isEmpty) {
+		return {
+			isWin: true,
+			isDraw: true
+		}
+	}
+
 	const boardSize = boardMap.length;
 	const winPoint = (() => {
 		switch (boardSize) {

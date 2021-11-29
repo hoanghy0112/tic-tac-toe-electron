@@ -81,8 +81,15 @@ const PlayPage = () => {
 	}, [boardSize]);
 	const boardMap = useSelector(boardMapSelector);
 
-	const handleNewMove = (x, y) => () => {
-		if (!winningState.isWin) dispatch(makeNewMove([x, y]))
+	const handleNewMove = (x, y) => (event) => {
+		if (!winningState.isWin) {
+			console.log(event);
+			event.target.classList.toggle("new-move");
+			setTimeout(() => {
+				dispatch(makeNewMove([x, y]));
+				event.target.classList.toggle("new-move");
+			}, 300);
+		}
 	}
 
 	return (
@@ -93,7 +100,7 @@ const PlayPage = () => {
 						{row.map((cell, indexY) => (
 							<div
 								className={`board__cell ${
-									winningState.isWin
+									winningState.isDraw || (winningState.isWin
 										? (() => {
 											if (winningState.winCells.some(value =>
 												JSON.stringify(value) == JSON.stringify({
@@ -102,7 +109,7 @@ const PlayPage = () => {
 												}))) return "winning-cell";
 											else return "";
 										})()
-										: ""
+										: "")
 								}`}
 								onClick={handleNewMove(indexX, indexY)}
 							>
@@ -118,7 +125,10 @@ const PlayPage = () => {
 			{ winningState.isWin &&
 				<Modal>
 					<div className="winning-dialogue">
-						<span>{ currentMove.type == X ? <img src={X_icon}/> : <img src={O_icon}/>} is the winner</span>
+						{ winningState.isDraw
+							? <span> <img src={X_icon}/>Draw !!! <img src={O_icon}/></span>
+							: <span>{ currentMove.type == X ? <img src={X_icon}/> : <img src={O_icon}/>} is the winner</span>
+						}
 						<div className="replay-dialogue">
 							Do you want to replay ?
 							<div className="button-group">
