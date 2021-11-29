@@ -33,9 +33,10 @@ const boardMapSlice = createSlice({
 			const [x, y] = action.payload;
 			const type =
 				state.currentMove.type == CELL_TYPE.X ? CELL_TYPE.O : CELL_TYPE.X;
-			state.currentMove = { x, y, type };
-			if (isValid(x, y, state.boardSize) && isEmpty(x, y, state.boardMap))
+			if (isValid(x, y, state.boardSize) && isEmpty(x, y, state.boardMap)) {
 				state.boardMap[x][y] = type;
+				state.currentMove = { x, y, type };
+			}
 		},
 	},
 });
